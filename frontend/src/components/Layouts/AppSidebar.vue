@@ -636,4 +636,10 @@ const articles = ref([
 .sidebar-section-header:hover * {
   color: black !important;
 }
+[data-theme='dark'] .sidebar-section-header {
+  color: white;
+}
+[data-theme='dark'] .sidebar-section-header:hover * {
+  color: white !important;
+}
 </style>
