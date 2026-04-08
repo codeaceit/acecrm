@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative flex h-full flex-col justify-between transition-all duration-300 ease-in-out"
+    class="relative flex h-full flex-col justify-between text-white transition-all duration-300 ease-in-out"
     :class="isSidebarCollapsed ? 'w-12' : 'w-[220px]'"
   >
     <div class="p-2">
@@ -39,7 +39,7 @@
           <template #header="{ opened, hide, toggle }">
             <div
               v-if="!hide"
-              class="flex items-center cursor-pointer gap-1.5 text-base text-ink-gray-5 transition-all duration-300 ease-in-out"
+              class="sidebar-section-header flex items-center cursor-pointer gap-1.5 text-base transition-all duration-300 ease-in-out"
               :class="
                 isSidebarCollapsed
                   ? 'h-0 overflow-hidden opacity-0'
@@ -49,7 +49,7 @@
             >
               <FeatherIcon
                 name="chevron-right"
-                class="h-4 text-ink-gray-9 transition-all duration-300 ease-in-out"
+                class="h-4 text-white transition-all duration-300 ease-in-out"
                 :class="{ 'rotate-90': opened }"
               />
               <span>{{ __(view.name) }}</span>
@@ -121,7 +121,7 @@
         <template #icon>
           <span class="grid h-4 w-4 flex-shrink-0 place-items-center">
             <CollapseSidebar
-              class="h-4 w-4 text-ink-gray-7 duration-300 ease-in-out"
+              class="h-4 w-4 text-white duration-300 ease-in-out"
               :class="{ '[transform:rotateY(180deg)]': isSidebarCollapsed }"
             />
           </span>
@@ -628,3 +628,12 @@ const articles = ref([
   },
 ])
 </script>
+
+<style scoped>
+.sidebar-section-header {
+  color: black;
+}
+.sidebar-section-header:hover * {
+  color: black !important;
+}
+</style>
