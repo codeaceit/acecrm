@@ -13,7 +13,7 @@
       >
         <BrandLogo v-model="brand" class="h-8 max-w-16 flex-shrink-0" />
         <div
-          class="flex flex-1 flex-col text-left duration-300 ease-in-out truncate"
+          class="user-dropdown-info group flex flex-1 flex-col text-left duration-300 ease-in-out truncate"
           :class="
             isCollapsed
               ? 'ml-0 w-0 overflow-hidden opacity-0'
@@ -21,11 +21,12 @@
           "
         >
           <div
-            class="text-base font-medium leading-none text-ink-gray-9 truncate"
+            class="text-base font-medium leading-none truncate"
+            :class="open ? 'text-ink-gray-9' : 'group-hover:text-black text-white'"
           >
             {{ __(brand.name || 'CRM') }}
           </div>
-          <div class="mt-1 text-sm leading-none text-ink-gray-7 truncate">
+          <div class="mt-1 text-sm leading-none truncate" :class="open ? 'text-ink-gray-7' : 'group-hover:text-black text-white'">
             {{ user.full_name }}
           </div>
         </div>
