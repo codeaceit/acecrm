@@ -5,7 +5,7 @@ app_description = "Kick-ass Open Source CRM"
 app_email = "code@codeace.in"
 app_license = "AGPLv3"
 app_icon_url = "/assets/crm/images/logo.svg"
-app_icon_title = "CRM"
+app_icon_title = "Ace CRM"
 app_icon_route = "/crm"
 
 # Apps
