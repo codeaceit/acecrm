@@ -16,14 +16,18 @@
         </div>
       </ListGroupHeader>
       <ListGroupRows :group="group">
-        <ListRow
-          v-for="row in group.rows"
+        <div
+          v-for="(row, index) in group.rows"
           :key="row.name"
-          v-slot="{ idx, column, item }"
-          :row="row"
+          :class="index % 2 === 0 ? 'bg-white-100' : 'bg-gray-100'"
         >
-          <slot v-bind="{ idx, column, item, row }" />
-        </ListRow>
+          <ListRow
+            v-slot="{ idx, column, item }"
+            :row="row"
+          >
+            <slot v-bind="{ idx, column, item, row }" />
+          </ListRow>
+        </div>
       </ListGroupRows>
     </div>
   </div>
@@ -33,14 +37,18 @@
     class="mx-3 sm:mx-5"
     @scroll="handleScroll"
   >
-    <ListRow
-      v-for="row in reactivieRows"
+    <div
+      v-for="(row, index) in reactivieRows"
       :key="row.name"
-      v-slot="{ idx, column, item }"
-      :row="row"
+      :class="index % 2 === 0 ? 'bg-white-100' : 'bg-gray-100'"
     >
-      <slot v-bind="{ idx, column, item, row }" />
-    </ListRow>
+      <ListRow
+        v-slot="{ idx, column, item }"
+        :row="row"
+      >
+        <slot v-bind="{ idx, column, item, row }" />
+      </ListRow>
+    </div>
   </ListRows>
 </template>
 
