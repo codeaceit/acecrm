@@ -19,7 +19,7 @@
         <div
           v-for="(row, index) in group.rows"
           :key="row.name"
-          :class="index % 2 === 0 ? 'bg-white-100' : 'bg-gray-100'"
+          :class="index % 2 === 0 ? 'bg-surface-white' : 'bg-surface-gray-1'"
         >
           <ListRow
             v-slot="{ idx, column, item }"
@@ -40,7 +40,7 @@
     <div
       v-for="(row, index) in reactivieRows"
       :key="row.name"
-      :class="index % 2 === 0 ? 'bg-white-100' : 'bg-gray-100'"
+      :class="index % 2 === 0 ? 'bg-surface-white' : 'bg-surface-gray-1'"
     >
       <ListRow
         v-slot="{ idx, column, item }"
