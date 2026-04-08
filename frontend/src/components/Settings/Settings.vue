@@ -8,13 +8,13 @@
     <template #body>
       <div class="flex h-[calc(100vh_-_8rem)] bg-surface-menu-bar">
         <div
-          class="flex flex-col m-1 rounded-l-lg w-56 shrink-0 bg-surface-menu-bar overflow-y-auto"
+          class="flex flex-col m-1 rounded-l-lg w-56 shrink-0 bg-surface-menu-bar overflow-y-auto text-ink-gray-9"
         >
           <template v-for="(tab, i) in tabs" :key="tab.label">
             <div v-if="!tab.hideLabel && i != 0" class="mx-1 mb-0.5 mt-[5px]" />
             <div
               v-if="!tab.hideLabel"
-              class="h-7.5 px-2 py-[7px] my-[3px] flex cursor-pointer gap-1.5 text-xs font-medium text-ink-gray-5 transition-all duration-300 ease-in-out sticky top-0 z-10 bg-surface-menu-bar"
+              class="h-7.5 px-2 py-[7px] my-[3px] flex cursor-pointer gap-1.5 text-xs font-medium text-ink-gray-7 transition-all duration-300 ease-in-out sticky top-0 z-10 bg-surface-menu-bar"
             >
               <span>{{ __(tab.label) }}</span>
             </div>
@@ -24,11 +24,11 @@
                 :key="item.label"
                 :icon="item.icon"
                 :label="__(item.label)"
-                class="w-full"
+                class="w-full text-ink-gray-9 [&_svg]:text-ink-gray-9"
                 :class="
                   activeTab?.label == item.label
                     ? 'bg-surface-selected shadow-sm hover:bg-surface-selected'
-                    : 'hover:bg-surface-gray-3'
+                    : 'hover:bg-surface-gray-3 hover:text-ink-gray-9'
                 "
                 @click="activeSettingsPage = item.label"
               />
