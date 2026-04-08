@@ -14,9 +14,9 @@ app_icon_route = "/crm"
 # required_apps = []
 add_to_apps_screen = [
 	{
-		"name": "crm",
+		"name": "acecrm",
 		"logo": "/assets/crm/images/logo.svg",
-		"title": "CRM",
+		"title": "ACE CRM",
 		"route": "/crm",
 		"has_permission": "crm.api.check_app_permission",
 	}
