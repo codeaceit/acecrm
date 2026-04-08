@@ -2,7 +2,7 @@
   <div v-if="field.visible" class="field">
     <div
       v-if="field.fieldtype != 'Check' && field.fieldtype != 'Button'"
-      class="mb-2 text-sm text-ink-gray-5"
+      class="mb-2 text-sm text-ink-gray-7"
     >
       {{ __(field.label) }}
       <span
@@ -67,7 +67,7 @@
         @change="(e) => fieldChange(e.target.checked, field)"
       />
       <label
-        class="text-sm text-ink-gray-5"
+        class="text-sm text-ink-gray-7"
         @click="
           () => {
             if (!Boolean(field.read_only)) {
