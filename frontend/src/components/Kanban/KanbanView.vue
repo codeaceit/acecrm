@@ -11,7 +11,8 @@
       <template #item="{ element: column }">
         <div
           v-if="!column.column.delete"
-          class="flex flex-col gap-2.5 min-w-72 w-72 hover:bg-surface-gray-2 rounded-lg p-2.5"
+          class="flex flex-col gap-2.5 min-w-72 w-72 rounded-lg p-2.5"
+          :class="getColumnBgColor(column.column.color)"
         >
           <div class="flex gap-2 items-center group justify-between">
             <div class="flex items-center text-base">
@@ -82,7 +83,7 @@
               <template #item="{ element: fields }">
                 <component
                   :is="options.getRoute ? 'router-link' : 'div'"
-                  class="pt-3 px-3.5 pb-2.5 rounded-lg border bg-surface-white text-base flex flex-col text-ink-gray-9"
+                  class="pt-3 px-3.5 pb-2.5 rounded-lg border bg-white text-base flex flex-col text-ink-gray-9"
                   :data-name="fields.name"
                   v-bind="{
                     to: options.getRoute ? options.getRoute(fields) : undefined,
@@ -270,5 +271,23 @@ function updateColumn(d, fetchNewColumns = false) {
   }
 
   emit('update', data)
+}
+
+function getColumnBgColor(color) {
+  const colorMap = {
+    gray: 'bg-gray-500',
+    blue: 'bg-blue-500',
+    green: 'bg-green-500',
+    red: 'bg-red-500',
+    yellow: 'bg-yellow-500',
+    orange: 'bg-orange-500',
+    amber: 'bg-amber-500',
+    cyan: 'bg-cyan-500',
+    teal: 'bg-teal-500',
+    violet: 'bg-violet-500',
+    purple: 'bg-purple-500',
+    black: 'bg-gray-400',
+  }
+  return colorMap[color] || 'bg-yellow-200'
 }
 </script>
