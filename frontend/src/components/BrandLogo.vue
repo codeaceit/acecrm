@@ -1,8 +1,8 @@
 <template>
   <div v-if="brand?.logo">
-    <img :src="brand.logo" class="h-full w-full object-cover" />
+    <img :src="brand.logo" class="h-10 w-10 object-cover" />
   </div>
-  <CRMLogo v-else class="size-8 shrink-0 rounded" />
+  <CRMLogo v-else class="size-10 shrink-0 rounded" />
 </template>
 
 <script setup>

@@ -8,7 +8,7 @@
   >
     <div
       class="flex w-full items-center justify-between duration-300 ease-in-out"
-      :class="isCollapsed ? 'ml-[3px] p-1' : 'px-2 py-[7px]'"
+      :class="isCollapsed ? 'ml-[3px] p-1' : 'px-4 py-4'"
     >
       <div class="flex items-center truncate">
         <Tooltip :text="label" placement="right" :disabled="!isCollapsed">
@@ -80,16 +80,12 @@ let isActive = computed(() => {
 </script>
 
 <style scoped>
-.sidebar-link:hover span {
-  color: black !important;
+.sidebar-link:hover span,
+.sidebar-link:hover svg {
+  color: #98b055 !important;
 }
-.sidebar-link.bg-surface-selected span {
-  color: black !important;
-}
-[data-theme='dark'] .sidebar-link:hover span {
-  color: white !important;
-}
-[data-theme='dark'] .sidebar-link.bg-surface-selected span {
-  color: white !important;
+.sidebar-link.bg-surface-selected span,
+.sidebar-link.bg-surface-selected svg {
+  color: #98b055 !important;
 }
 </style>

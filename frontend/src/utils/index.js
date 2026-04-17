@@ -406,8 +406,9 @@ export function copyToClipboard(text) {
 }
 
 export const colors = [
-  'gray',
   'blue',
+  'violet',
+  'gray',
   'green',
   'red',
   'pink',
@@ -416,7 +417,6 @@ export const colors = [
   'yellow',
   'cyan',
   'teal',
-  'violet',
   'purple',
   'black',
 ]

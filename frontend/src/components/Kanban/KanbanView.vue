@@ -5,7 +5,7 @@
       :list="columns"
       item-key="column"
       :delay="isTouchScreenDevice() ? 200 : 0"
-      class="flex sm:mx-2.5 mx-2 pb-3.5"
+      class="flex gap-8 sm:mx-10 mx-8 pb-3.5"
       @end="updateColumn"
     >
       <template #item="{ element: column }">
@@ -70,7 +70,10 @@
               />
             </div>
           </div>
-          <div class="overflow-y-auto flex flex-col gap-2 h-full">
+          <div
+              class="overflow-y-auto flex flex-col gap-2 h-full kanban-scroll"
+              :style="{ '--scroll-color': getColumnColor(column.column.color) }"
+            >
             <Draggable
               :list="column.data"
               group="fields"
@@ -205,12 +208,9 @@ const columns = computed(() => {
     return []
   let _columns = kanban.value.data.data
 
-  let has_color = _columns.some((column) => column.column?.color)
-  if (!has_color) {
-    _columns.forEach((column, i) => {
-      column.column['color'] = colors[i % colors.length]
-    })
-  }
+  _columns.forEach((column, i) => {
+    column.column['color'] = colors[i % colors.length]
+  })
   return _columns
 })
 
@@ -275,19 +275,55 @@ function updateColumn(d, fetchNewColumns = false) {
 
 function getColumnBgColor(color) {
   const colorMap = {
-    gray: 'bg-gray-500',
-    blue: 'bg-blue-500',
-    green: 'bg-green-500',
-    red: 'bg-red-500',
-    yellow: 'bg-yellow-500',
-    orange: 'bg-orange-500',
-    amber: 'bg-amber-500',
-    cyan: 'bg-cyan-500',
-    teal: 'bg-teal-500',
-    violet: 'bg-violet-500',
-    purple: 'bg-purple-500',
-    black: 'bg-gray-400',
+    blue: 'bg-gradient-to-br from-[#C9B8A8] to-[#8B7B74]',
+    violet: 'bg-gradient-to-br from-blue-200 to-blue-600',
+    gray: 'bg-gradient-to-br from-violet-200 to-violet-600',
+    green: 'bg-gradient-to-br from-green-200 to-green-600',
+    red: 'bg-gradient-to-br from-red-200 to-red-600',
+    pink: 'bg-gradient-to-br from-pink-200 to-pink-600',
+    orange: 'bg-gradient-to-br from-orange-200 to-orange-600',
+    amber: 'bg-gradient-to-br from-amber-200 to-amber-600',
+    yellow: 'bg-gradient-to-br from-yellow-200 to-yellow-600',
+    cyan: 'bg-gradient-to-br from-cyan-200 to-cyan-600',
+    teal: 'bg-gradient-to-br from-teal-200 to-teal-600',
+    purple: 'bg-gradient-to-br from-purple-200 to-purple-600',
+    black: 'bg-gradient-to-br from-gray-200 to-gray-500',
   }
-  return colorMap[color] || 'bg-yellow-200'
+  return colorMap[color] || 'bg-gradient-to-br from-yellow-200 to-yellow-600'
+}
+
+function getColumnColor(color) {
+  const colorMap = {
+    blue: '#D4C4B5',
+    violet: '#93c5fd',
+    gray: '#c4b5fd',
+    green: '#86efac',
+    red: '#fca5a5',
+    pink: '#f9a8d4',
+    orange: '#fdba74',
+    amber: '#fde68a',
+    yellow: '#fde68a',
+    cyan: '#67e8f9',
+    teal: '#5eead4',
+    purple: '#d8b4fe',
+    black: '#e5e7eb',
+  }
+  return colorMap[color] || '#fef08a'
 }
 </script>
+
+<style scoped>
+.kanban-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.kanban-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.kanban-scroll::-webkit-scrollbar-thumb {
+  background: var(--scroll-color);
+  border-radius: 3px;
+}
+.kanban-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--scroll-color);
+}
+</style>
