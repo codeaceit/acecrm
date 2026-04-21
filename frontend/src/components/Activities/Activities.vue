@@ -1,13 +1,11 @@
 <template>
   <ActivityHeader
     v-model="tabIndex"
-    v-model:showWhatsappTemplates="showWhatsappTemplates"
     v-model:showFilesUploader="showFilesUploader"
     v-model:emailBox="emailBox"
     :tabs="tabs"
     :title="title"
     :doc="doc"
-    :whatsappBox="whatsappBox"
     :modalRef="modalRef"
   />
   <FadedScrollableDiv class="flex flex-col h-full overflow-y-auto">
@@ -21,14 +19,37 @@
     <div
       v-else-if="
         activities?.length ||
-        (whatsappMessages.data?.length && title == 'WhatsApp')
+        (whatsappMessages.data?.length && title == 'WhatsApp') ||
+        (whatsappLogs.data?.length && title == 'WhatsApp')
       "
       class="activities"
     >
-      <div v-if="title == 'WhatsApp' && whatsappMessages.data?.length">
+      <div v-if="title == 'WhatsApp' && whatsappLogs.data?.length">
+        <div v-for="(log, i) in whatsappLogs.data" :key="log.name">
+          <div
+            class="activity grid grid-cols-[30px_minmax(auto,_1fr)] gap-4 px-3 sm:px-10"
+          >
+            <div
+              class="z-0 relative flex justify-center before:absolute before:left-[50%] before:-z-[1] before:top-0 before:border-l before:border-outline-gray-modals"
+              :class="
+                i != whatsappLogs.data.length - 1 ? 'before:h-full' : 'before:h-4'
+              "
+            >
+              <div
+                class="flex h-8 w-7 items-center justify-center bg-surface-white text-ink-gray-8"
+              >
+                <component :is="OutboundCallIcon" />
+              </div>
+            </div>
+            <WhatsAppLogArea class="mb-4" :log="log" />
+          </div>
+        </div>
+      </div>
+      <div
+        v-else-if="title == 'WhatsApp' && whatsappMessages.data?.length"
+      >
         <WhatsAppArea
           v-model="whatsappMessages"
-          v-model:reply="replyMessage"
           class="px-3 sm:px-10"
           :messages="whatsappMessages.data"
         />
@@ -405,22 +426,8 @@
       :doctype="doctype"
       @scroll="scroll"
     />
-    <WhatsAppBox
-      v-if="title == 'WhatsApp'"
-      ref="whatsappBox"
-      v-model="doc"
-      v-model:reply="replyMessage"
-      v-model:whatsapp="whatsappMessages"
-      :doctype="doctype"
-      @scroll="scroll"
-    />
+    
   </div>
-  <WhatsappTemplateSelectorModal
-    v-if="whatsappEnabled"
-    v-model="showWhatsappTemplates"
-    :doctype="doctype"
-    @send="(t) => sendTemplate(t)"
-  />
   <AllModals
     ref="modalRef"
     v-model="all_activities"
@@ -458,7 +465,7 @@ import TaskIcon from '@/components/Icons/TaskIcon.vue'
 import AttachmentIcon from '@/components/Icons/AttachmentIcon.vue'
 import WhatsAppIcon from '@/components/Icons/WhatsAppIcon.vue'
 import WhatsAppArea from '@/components/Activities/WhatsAppArea.vue'
-import WhatsAppBox from '@/components/Activities/WhatsAppBox.vue'
+import WhatsAppLogArea from '@/components/Activities/WhatsAppLogArea.vue'
 import LoadingIndicator from '@/components/Icons/LoadingIndicator.vue'
 import EmptyState from '@/components/ListViews/EmptyState.vue'
 import LeadsIcon from '@/components/Icons/LeadsIcon.vue'
@@ -472,7 +479,6 @@ import InboundCallIcon from '@/components/Icons/InboundCallIcon.vue'
 import OutboundCallIcon from '@/components/Icons/OutboundCallIcon.vue'
 import FadedScrollableDiv from '@/components/FadedScrollableDiv.vue'
 import CommunicationArea from '@/components/CommunicationArea.vue'
-import WhatsappTemplateSelectorModal from '@/components/Modals/WhatsappTemplateSelectorModal.vue'
 import AllModals from '@/components/Activities/AllModals.vue'
 import FilesUploader from '@/components/FilesUploader/FilesUploader.vue'
 import { timeAgo, formatDate, startCase } from '@/utils'
@@ -540,8 +546,6 @@ const all_activities = createResource({
   onSuccess: () => nextTick(() => scroll()),
 })
 
-const showWhatsappTemplates = ref(false)
-
 const whatsappMessages = createResource({
   url: 'crm.api.whatsapp.get_whatsapp_messages',
   cache: ['whatsapp_messages', props.docname],
@@ -552,6 +556,20 @@ const whatsappMessages = createResource({
   auto: whatsappEnabled.value,
   transform: (data) => sortByCreation(data),
   onSuccess: () => nextTick(() => scroll()),
+})
+
+const whatsappLogs = createResource({
+  url: 'frappe.client.get_list',
+  cache: ['whatsapp_logs', props.docname],
+  params: {
+    doctype: 'Whatsapp Log',
+    filters: [
+      ['reference_docname', '=', props.docname],
+    ],
+    fields: ['name', 'from', 'message', 'user', 'creation'],
+    order_by: 'creation desc',
+  },
+  auto: true,
 })
 
 onBeforeUnmount(() => {
@@ -576,27 +594,6 @@ onMounted(() => {
     }
   })
 })
-
-function sendTemplate(template) {
-  showWhatsappTemplates.value = false
-  capture('send_whatsapp_template', { doctype: props.doctype })
-  createResource({
-    url: 'crm.api.whatsapp.send_whatsapp_template',
-    params: {
-      reference_doctype: props.doctype,
-      reference_name: props.docname,
-      to: doc.value.mobile_no,
-      template,
-    },
-    auto: true,
-    onError: (error) => {
-      toast.error(error.messages?.[0] || __('Failed to send WhatsApp template'))
-    },
-    onSuccess: () => whatsappMessages.reload(),
-  })
-}
-
-const replyMessage = ref({})
 
 function get_activities() {
   if (!all_activities.data?.versions) return []
@@ -789,7 +786,6 @@ function timelineIcon(activity_type, is_lead) {
 }
 
 const emailBox = ref(null)
-const whatsappBox = ref(null)
 
 watch([reload, reload_email], ([reload_value, reload_email_value]) => {
   if (reload_value || reload_email_value) {

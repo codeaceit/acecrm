@@ -85,6 +85,12 @@ const routes = [
     component: () => import('@/pages/CallLogs.vue'),
   },
   {
+    alias: '/whatsapp-logs',
+    path: '/whatsapp-logs/view/:viewType?',
+    name: 'WhatsApp Logs',
+    component: () => import('@/pages/WhatsAppLogs.vue'),
+  },
+  {
     path: '/data-import',
     name: 'DataImportList',
     component: () => import('@/pages/DataImport.vue'),
@@ -181,6 +187,7 @@ router.beforeEach(async (to, from, next) => {
       'Notes',
       'Tasks',
       'Call Logs',
+      'WhatsApp Logs',
     ].includes(to.name) &&
     !to.query?.view
   ) {
@@ -199,6 +206,7 @@ router.beforeEach(async (to, from, next) => {
         Notes: 'FCRM Note',
         Tasks: 'CRM Task',
         'Call Logs': 'CRM Call Log',
+        'WhatsApp Logs': 'Whatsapp Log',
       }
 
       const doctype = doctypeMap[to.name]

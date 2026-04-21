@@ -22,11 +22,19 @@
     :referenceDoc="referenceDoc"
     :options="{ afterInsert: () => activities.reload() }"
   />
+  <WhatsAppLogModal
+    v-if="showWhatsAppLogModal"
+    v-model="showWhatsAppLogModal"
+    :data="whatsAppLog"
+    :referenceDoc="referenceDoc"
+    :options="{ afterInsert: () => activities.reload() }"
+  />
 </template>
 <script setup>
 import TaskModal from '@/components/Modals/TaskModal.vue'
 import NoteModal from '@/components/Modals/NoteModal.vue'
 import CallLogModal from '@/components/Modals/CallLogModal.vue'
+import WhatsAppLogModal from '@/components/Modals/WhatsAppLogModal.vue'
 import { call } from 'frappe-ui'
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -101,6 +109,21 @@ function createCallLog() {
   showCallLogModal.value = true
 }
 
+// WhatsApp Logs
+const showWhatsAppLogModal = ref(false)
+const whatsAppLog = ref({})
+
+function createWhatsAppLog() {
+  let doctype = props.doctype
+  let docname = props.doc?.name
+  referenceDoc.value = { ...props.doc }
+  whatsAppLog.value = {
+    reference_doctype: doctype,
+    reference_name: docname,
+  }
+  showWhatsAppLogModal.value = true
+}
+
 // common
 const route = useRoute()
 const router = useRouter()
@@ -120,5 +143,6 @@ defineExpose({
   updateTaskStatus,
   showNote,
   createCallLog,
+  createWhatsAppLog,
 })
 </script>

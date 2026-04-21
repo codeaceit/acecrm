@@ -452,6 +452,11 @@ const tabs = computed(() => {
       condition: () => callEnabled.value,
     },
     {
+name: 'WhatsApp',
+      label: __('WhatsApp'),
+      icon: WhatsAppIcon,
+    },
+    {
       name: 'Tasks',
       label: __('Tasks'),
       icon: TaskIcon,
@@ -467,7 +472,7 @@ const tabs = computed(() => {
       icon: AttachmentIcon,
     },
     {
-      name: 'WhatsApp',
+      name: 'WhatsApp Log',
       label: __('WhatsApp'),
       icon: WhatsAppIcon,
       condition: () => whatsappEnabled.value,

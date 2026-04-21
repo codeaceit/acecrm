@@ -46,18 +46,14 @@
       iconLeft="plus"
       @click="showFilesUploader = true"
     />
-    <div v-else-if="title == 'WhatsApp'" class="flex gap-2 shrink-0">
-      <Button
-        :label="__('Send Template')"
-        @click="showWhatsappTemplates = true"
-      />
-      <Button
-        variant="solid"
-        :label="__('New Message')"
-        iconLeft="plus"
-        @click="whatsappBox.show()"
-      />
-    </div>
+    
+    <Button
+      v-else-if="title == 'WhatsApp'"
+      variant="solid"
+      :label="__('Log WhatsApp')"
+      iconLeft="message-circle"
+      @click="modalRef.createWhatsAppLog()"
+    />
     <Dropdown v-else :options="defaultActions" @click.stop>
       <template #default="{ open }">
         <Button
