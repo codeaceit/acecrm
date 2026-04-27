@@ -13,7 +13,7 @@
           :label="__('Notifications')"
           :icon="NotificationsIcon"
           :isCollapsed="isSidebarCollapsed"
-          class="relative mx-2 my-[1.5px]"
+          class="relative mx-2 my-[14px]"
           @click="() => toggleNotificationPanel()"
         >
           <template #right>
@@ -30,7 +30,7 @@
         </SidebarLink>
       </div>
       <div v-for="view in allViews" :key="view.label">
-        <div class="mx-2 my-1.5" />
+        <div class="mx-2 my-5" />
         <Section
           :label="view.name"
           :hideLabel="view.hideLabel"
@@ -39,7 +39,7 @@
           <template #header="{ opened, hide, toggle }">
             <div
               v-if="!hide"
-              class="sidebar-section-header flex items-center cursor-pointer gap-1.5 text-base transition-all duration-300 ease-in-out"
+              class="sidebar-section-header flex items-center cursor-pointer gap-1.5 text-lg transition-all duration-300 ease-in-out"
               :class="
                 isSidebarCollapsed
                   ? 'h-0 overflow-hidden opacity-0'
@@ -63,7 +63,7 @@
               :label="__(link.label)"
               :to="link.to"
               :isCollapsed="isSidebarCollapsed"
-              class="mx-2 my-[1.5px]"
+              class="mx-2 my-[14px]"
             />
           </nav>
         </Section>

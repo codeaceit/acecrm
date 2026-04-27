@@ -276,20 +276,20 @@ function updateColumn(d, fetchNewColumns = false) {
 function getColumnBgColor(color) {
   const colorMap = {
     blue: 'bg-gradient-to-br from-[#8B7B74] to-[#C9B8A8]',
-    violet: 'bg-gradient-to-br from-blue-600 to-blue-200',
-    gray: 'bg-gradient-to-br from-violet-600 to-violet-200',
-    green: 'bg-gradient-to-br from-green-600 to-green-200',
-    red: 'bg-gradient-to-br from-red-600 to-red-200',
-    pink: 'bg-gradient-to-br from-pink-600 to-pink-200',
-    orange: 'bg-gradient-to-br from-orange-600 to-orange-200',
-    amber: 'bg-gradient-to-br from-amber-600 to-amber-200',
-    yellow: 'bg-gradient-to-br from-yellow-600 to-yellow-200',
-    cyan: 'bg-gradient-to-br from-cyan-600 to-cyan-200',
-    teal: 'bg-gradient-to-br from-teal-600 to-teal-200',
-    purple: 'bg-gradient-to-br from-purple-600 to-purple-200',
-    black: 'bg-gradient-to-br from-gray-500 to-gray-200',
+    violet: 'bg-gradient-to-br from-blue-600 to-blue-400',
+    gray: 'bg-gradient-to-br from-violet-600 to-violet-400',
+    green: 'bg-gradient-to-br from-green-600 to-green-400',
+    red: 'bg-gradient-to-br from-red-600 to-red-400',
+    pink: 'bg-gradient-to-br from-pink-600 to-pink-400',
+    orange: 'bg-gradient-to-br from-orange-600 to-orange-400',
+    amber: 'bg-gradient-to-br from-amber-600 to-amber-400',
+    yellow: 'bg-gradient-to-br from-yellow-600 to-yellow-400',
+    cyan: 'bg-gradient-to-br from-cyan-600 to-cyan-400',
+    teal: 'bg-gradient-to-br from-teal-600 to-teal-400',
+    purple: 'bg-gradient-to-br from-purple-600 to-purple-400',
+    black: 'bg-gradient-to-br from-gray-500 to-gray-400',
   }
-  return colorMap[color] || 'bg-gradient-to-br from-yellow-600 to-yellow-200'
+  return colorMap[color] || 'bg-gradient-to-br from-yellow-600 to-yellow-400'
 }
 
 function getColumnColor(color) {

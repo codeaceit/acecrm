@@ -26,7 +26,7 @@
           :hoverDelay="1.5"
         >
           <span
-            class="flex-1 flex-shrink-0 truncate text-sm font-medium duration-300 ease-in-out"
+            class="flex-1 flex-shrink-0 truncate text-[15px] font-medium duration-300 ease-in-out"
             :class="[
               isCollapsed
                 ? 'ml-0 w-0 overflow-hidden opacity-0'
