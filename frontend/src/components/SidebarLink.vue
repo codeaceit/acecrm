@@ -82,10 +82,10 @@ let isActive = computed(() => {
 <style scoped>
 .sidebar-link:hover span,
 .sidebar-link:hover svg {
-  color: #98b055 !important;
+  color: #CDFF7B !important;
 }
 .sidebar-link.bg-surface-selected span,
 .sidebar-link.bg-surface-selected svg {
-  color: #98b055 !important;
+  color: #CDFF7B !important;
 }
 </style>

@@ -22,7 +22,7 @@
         >
           <div
             class="text-base font-medium leading-none truncate"
-            :class="open ? 'text-ink-gray-9' : 'group-hover:text-[#98b055] text-white'"
+            :class="open ? 'text-ink-gray-9' : 'group-hover:text-[#CDFF7B] text-white'"
           >
             {{ __(brand.name || 'Wilmarcs CRM') }}
           </div>
